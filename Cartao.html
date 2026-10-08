@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Arthur | Cartão de Visita Digital</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#0b1426;
+    --gold:#d4a85a;
+    --gold-2:#f0d39a;
+    --text:#e8ecf4;
+    --muted:#9aa6bf;
+    --glass:rgba(255,255,255,.05);
+    --line:rgba(255,255,255,.12);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    font-family:'Poppins',system-ui,-apple-system,'Segoe UI',sans-serif;
+    color:var(--text);
+    min-height:100vh;
+    display:flex;align-items:center;justify-content:center;
+    padding:32px 20px;
+    background:
+      radial-gradient(1000px 520px at 0% -10%,#1f3360 0%,transparent 60%),
+      radial-gradient(800px 480px at 110% 110%,#3b2a10 0%,transparent 55%),
+      var(--navy);
+  }
+  .wrap{
+    width:100%;max-width:980px;
+    display:grid;grid-template-columns:1.1fr .9fr;gap:56px;align-items:center;
+  }
+  .rise{animation:rise .8s cubic-bezier(.2,.7,.2,1) both}
+  .d1{animation-delay:.1s}.d2{animation-delay:.2s}.d3{animation-delay:.3s}.d4{animation-delay:.4s}
+
+  .badge{
+    display:inline-flex;align-items:center;gap:8px;
+    font-size:11px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--gold);padding:7px 14px;border-radius:999px;
+    border:1px solid rgba(212,168,90,.35);background:rgba(212,168,90,.08);
+  }
+  h1{font-size:clamp(28px,4vw,42px);line-height:1.15;font-weight:700;letter-spacing:-.015em;margin:22px 0 14px}
+  h1 span{background:linear-gradient(90deg,var(--gold),var(--gold-2));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .sub{font-size:17px;color:var(--muted);line-height:1.6;margin-bottom:28px}
+
+  .feats{list-style:none;display:grid;gap:12px;margin-bottom:32px}
+  .feats li{display:flex;align-items:center;gap:14px;font-size:15px}
+  .feats i{
+    width:34px;height:34px;border-radius:10px;flex-shrink:0;
+    display:grid;place-items:center;font-style:normal;font-size:14px;color:var(--gold);
+    background:var(--glass);border:1px solid var(--line);
+  }
+
+  .btns{display:grid;gap:12px}
+  .btn{
+    display:flex;align-items:center;gap:14px;width:100%;
+    padding:14px 18px;border-radius:16px;
+    color:var(--text);text-decoration:none;text-align:left;font:inherit;cursor:pointer;
+    background:var(--glass);border:1px solid var(--line);
+    transition:transform .3s ease,box-shadow .3s ease,border-color .3s ease,background .3s ease;
+  }
+  .btn:hover{transform:translateY(-3px);border-color:rgba(212,168,90,.6);background:rgba(255,255,255,.08);box-shadow:0 14px 30px -14px rgba(212,168,90,.5)}
+  .btn:active{transform:translateY(-1px) scale(.99)}
+  .btn .ic{
+    width:44px;height:44px;border-radius:13px;flex-shrink:0;
+    display:grid;place-items:center;color:#fff;
+  }
+  .btn .ic svg{width:22px;height:22px;fill:currentColor}
+  .btn .tx{flex:1}
+  .btn strong{display:block;font-size:15px;font-weight:600}
+  .btn small{display:block;font-size:13px;color:var(--muted);margin-top:2px}
+  .btn .arr{color:var(--gold);font-size:18px;transition:transform .3s ease}
+  .btn:hover .arr{transform:translateX(5px)}
+  .wa .ic{background:#25d366}
+  .ig .ic{background:linear-gradient(45deg,#f58529,#dd2a7b 50%,#8134af)}
+
+  /* Phone mockup */
+  .stage{position:relative;display:grid;place-items:center;min-height:540px}
+  .glow{
+    position:absolute;width:340px;height:340px;border-radius:50%;
+    background:radial-gradient(circle,rgba(212,168,90,.32),transparent 70%);
+    filter:blur(12px);
+  }
+  .phone{
+    position:relative;width:270px;height:540px;border-radius:42px;
+    background:#050a14;border:8px solid #1b2640;
+    box-shadow:0 50px 90px -30px rgba(0,0,0,.7),inset 0 0 0 1px rgba(255,255,255,.04);
+    padding:16px 12px;
+    animation:float 6s ease-in-out infinite;
+    transform-style:preserve-3d;transition:transform .15s ease-out;
+  }
+  .notch{width:92px;height:24px;background:#050a14;border-radius:0 0 16px 16px;margin:-16px auto 14px;position:relative;z-index:2}
+  .screen{
+    height:calc(100% - 38px);border-radius:28px;padding:26px 18px;
+    background:linear-gradient(165deg,#1f3360,#0d1730);
+    border:1px solid var(--line);text-align:center;
+    display:flex;flex-direction:column;align-items:center;
+  }
+  .avatar{
+    width:76px;height:76px;border-radius:50%;margin-bottom:14px;
+    display:grid;place-items:center;font-size:26px;font-weight:700;color:var(--navy);
+    background:linear-gradient(135deg,var(--gold),#8a5f22);
+    box-shadow:0 0 0 4px rgba(212,168,90,.15);
+  }
+  .screen h3{font-size:18px;font-weight:600}
+  .screen .role{font-size:12px;color:var(--muted);margin-top:2px}
+  .mini{margin-top:auto;width:100%;display:grid;gap:9px}
+  .mini div{
+    padding:11px;border-radius:12px;font-size:12px;font-weight:500;
+    background:rgba(255,255,255,.06);border:1px solid var(--line);
+  }
+  .mini .gold{background:linear-gradient(90deg,var(--gold),#b5853a);color:var(--navy);border:none;font-weight:600}
+
+  .foot{
+    grid-column:1/-1;margin-top:4px;padding:18px 22px;border-radius:16px;
+    background:var(--glass);border:1px solid var(--line);
+    font-size:14px;line-height:1.7;color:var(--muted);
+  }
+  .foot strong{color:var(--text);font-weight:600}
+
+  @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+  @keyframes rise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+
+  @media (max-width:840px){
+    .wrap{grid-template-columns:1fr;gap:40px}
+    .intro{text-align:center}
+    .feats li{justify-content:center}
+    .stage{min-height:auto;order:-1}
+    .phone{width:230px;height:460px}
+    .glow{width:280px;height:280px}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *{animation:none!important;transition:none!important}
+  }
+</style>
+</head>
+<body>
+
+<main class="wrap">
+
+  <section class="intro">
+    <span class="badge rise">Cartão de Visita Digital</span>
+
+    <h1 class="rise d1">O seu trabalho autônomo merece uma apresentação <span>Premium.</span></h1>
+
+    <p class="sub rise d2">Conheça o Cartão de Visita Digital Interativo.</p>
+
+    <ul class="feats rise d2">
+      <li><i>✦</i>Envie como link ou arquivo PDF.</li>
+      <li><i>✦</i>Botões inteligentes e clicáveis.</li>
+      <li><i>✦</i>Direto para seu WhatsApp e Redes Sociais.</li>
+    </ul>
+
+    <div class="btns rise d3">
+      <a class="btn wa" href="https://wa.me/5517996703354?text=Ol%C3%A1%2C%20Arthur!%20Vi%20seu%20cart%C3%A3o%20digital%20e%20gostaria%20de%20conversar." target="_blank" rel="noopener">
+        <span class="ic"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-2.9.8.8-2.8-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.8-1.4.1-.2 0-.4 0-.5l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.1.6a2.7 2.7 0 0 0 1.8-1.3 2.2 2.2 0 0 0 .2-1.3c0-.1-.2-.2-.4-.3z"/></svg></span>
+        <span class="tx"><strong>Falar no WhatsApp</strong><small>Resposta direta, sem complicação</small></span>
+        <span class="arr">→</span>
+      </a>
+
+      <a class="btn ig" href="https://www.instagram.com/arthurbarrostomaz" target="_blank" rel="noopener">
+        <span class="ic"><svg viewBox="0 0 24 24"><path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm0 2a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3H7zm5 3.5A4.5 4.5 0 1 1 7.5 12 4.5 4.5 0 0 1 12 7.5zm0 2A2.5 2.5 0 1 0 14.5 12 2.5 2.5 0 0 0 12 9.5zM17.5 6a1 1 0 1 1-1 1 1 1 0 0 1 1-1z"/></svg></span>
+        <span class="tx"><strong>Instagram</strong><small>Acompanhe meus trabalhos</small></span>
+        <span class="arr">→</span>
+      </a>
+    </div>
+  </section>
+
+  <section class="stage rise d2" id="stage">
+    <div class="glow"></div>
+    <div class="phone" id="phone">
+      <div class="notch"></div>
+      <div class="screen">
+        <div class="avatar">A</div>
+        <h3>Arthur</h3>
+        <p class="role">Criação digital · Sites &amp; Landing Pages</p>
+        <div class="mini">
+          <div class="gold">Falar no WhatsApp</div>
+          <div>Instagram</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="foot rise d4">
+    🌐 <strong>Dica extra:</strong> Também desenvolvo sites profissionais e páginas de apresentação (Landing Pages) completas para quem precisa de uma presença online ainda mais forte.
+  </div>
+
+</main>
+
+<script>
+  // Efeito de inclinação 3D no celular acompanhando o mouse
+  const phone = document.getElementById('phone');
+  const stage = document.getElementById('stage');
+  if (window.matchMedia('(min-width: 841px)').matches) {
+    stage.addEventListener('mousemove', (e) => {
+      const r = stage.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width - 0.5;
+      const y = (e.clientY - r.top) / r.height - 0.5;
+      phone.style.transform = `rotateY(${x * 14}deg) rotateX(${-y * 14}deg)`;
+    });
+    stage.addEventListener('mouseleave', () => {
+      phone.style.transform = '';
+    });
+  }
+</script>
+</body>
+</html>
